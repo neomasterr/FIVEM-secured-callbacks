@@ -19,7 +19,7 @@ AddEventHandler('some:event', function(callback)
 end)
 ```
 
-But what if some hacker use this in other way, like `TriggerEvent('some:event', 'system:wipeAllData')`? It will wipe you data! (in theory).
+But what if some hacker use this in other way, like `TriggerEvent('some:event', 'system:wipeAllData')`? It will wipe your data! (in theory).
 So you need filter all callbacks. You can do it with my `Secured Callbacks`
 
 Example:
