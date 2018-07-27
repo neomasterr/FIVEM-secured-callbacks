@@ -1,4 +1,4 @@
-# FIVEM secured callbacks
+# FIVEM secured-callbacks
 
 Sometimes you need to do like this
 
