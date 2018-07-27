@@ -1,6 +1,7 @@
 # FIVEM secured callbacks
 
 Sometimes you need to do like this
+
 First script:
 ```lua
 AddEventHandler('some:callback', function(data)
