@@ -104,6 +104,12 @@ AddEventHandler('some:event', function(callback)
 	-- do something with data
 	TriggerEvent('callback:secured', callback, data)	-- filtering trough callback:secured EventHandler
 end)
+
+-- or maybe
+
+-- function TriggerSecureEvent(eventName, ...)
+--	TriggerEvent('callback:secured', eventName, ...)
+-- end
 ```
 
 This is very easy. Triggering callback event by key will protect you from baby hackers.
