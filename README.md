@@ -19,10 +19,45 @@ AddEventHandler('some:event', function(callback)
 end)
 ```
 
-But what if some hacker use this in other way, like `TriggerEvent('some:event', 'system:wipeAllData')`? It will wipe you data! (in theory).
+But what if some hacker use this in other way, like `Trigger(Server)Event('some:event', 'system:wipeAllData')`? It will wipe your data! (in theory).
 So you need filter all callbacks. You can do it with my `Secured Callbacks`
 
-Example:
+# Example (easy):
+
+First script:
+```lua
+local example_callbacks = {	-- list of callbacks that need be secured way triggering
+	['some:callback'] = 'some_kind_of_id'
+}
+
+local data = AddEventHandler('callback:Registered:some_kind_of_id', function(name, key, data)
+	example_callbacks['some:callback'] = key -- updating key
+	RemoveEventHandler(data)
+end)
+
+TriggerEvent('callback:register', 'some_kind_of_id', 'some:callback', data) -- registering callback
+
+AddEventHandler('onResourceStart', function(resource)
+	if resource == 'callbacks' then
+		TriggerEvent('some:event', example_callbacks['some:callback'])
+	end
+end)
+
+AddEventHandler('some:callback', function(data)
+	-- do some stuff on data response
+end)
+```
+
+Second script:
+```lua
+AddEventHandler('some:event', function(callback)
+	local data = {}
+	-- do something with data
+	TriggerEvent('callback:secured', callback, data)	-- filtering trough callback:secured EventHandler
+end)
+```
+
+# Example (pro):
 
 First script:
 ```lua
@@ -45,14 +80,14 @@ AddEventHandler('onResourceStart', function(resource)
 
 		-- so, now you can trigger events with secured callback, like
 		for _, key in pairs(secure_cb) do
-			TriggerEvent('test:example', key)
+			TriggerEvent('some:event', key)
 		end
 		-- or in that way
 		for _, key in pairs(example_callbacks) do
-			TriggerEvent('test:example', secure_cb[key])
+			TriggerEvent('some:event', secure_cb[key])
 		end
 		-- or in way
-		TriggerEvent('test:example', secure_cb['some:callback'])
+		TriggerEvent('some:event', secure_cb['some:callback'])
 
 	end
 end)
@@ -70,3 +105,5 @@ AddEventHandler('some:event', function(callback)
 	TriggerEvent('callback:secured', callback, data)	-- filtering trough callback:secured EventHandler
 end)
 ```
+
+This is very easy. Triggering callback event by key will protect you from baby hackers.
