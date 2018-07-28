@@ -30,6 +30,11 @@ local charset = {} do
 end
 
 function randomString(length)
-    if not length or length <= 0 then return '' end
-    return randomString(length - 1) .. charset[math.random(1, #charset)]
+	if length <= 0 then return '' end
+	local rand = math.random
+	local str = ''
+	for i = 1, length do
+		str = str .. charset[rand(1, #charset)]
+	end
+	return str
 end
