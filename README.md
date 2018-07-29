@@ -65,7 +65,7 @@ local example_callbacks = {	-- list of callbacks that need be secured way trigge
 	'some:callback'
 }
 
-local secure_cb = callbacks_encrypt(example_callbacks) -- create some identification keys for handle register results
+local secure_cb = --[[exports.callbacks:]]callbacks_encrypt(example_callbacks) -- create some identification keys for handle register results
 
 for callback, key in pairs(secure_cb) do
 	local data = AddEventHandler('callback:Registered:'..key, function(name, key, data)
